@@ -8,7 +8,7 @@ This project focuses heavily on UI/UX quality, state management, and scalable fr
 
 ## Live Demo
 
-[View Live Project](#)
+[[View Live Project](https://over-pay-zorvyn.netlify.app/)](#)
 
 <!-- Replace # with your deployed link -->
 
@@ -19,7 +19,7 @@ This project focuses heavily on UI/UX quality, state management, and scalable fr
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/overpay.git
+git clone https://github.com/raymondjoseph02/Over-pay-zorvyn-frontend-assessment.git
 cd overpay
 ```
 
