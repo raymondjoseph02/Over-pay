@@ -11,7 +11,10 @@ export const DashboardLayout = () => {
   const closeSidebar = () => setIsOpen(false);
 
   return (
-    <div className="flex h-dvh overflow-hidden dark:bg-gray-900 bg-white">
+    <div
+      className="flex h-dvh overflow-hidden dark:bg-gray-900 bg-white 2xl:container 2xl:mx-auto
+    "
+    >
       {/* Desktop Sidebar */}
       <div className="hidden lg:block h-dvh shrink-0">
         <SideBar closeSidebar={closeSidebar} />
@@ -51,7 +54,7 @@ export const DashboardLayout = () => {
       <div className="flex flex-col flex-1 overflow-hidden">
         <NavBar toggleSidebar={toggleSidebar} isOpen={isOpen} />
 
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 ">
           <Outlet />
         </main>
       </div>
