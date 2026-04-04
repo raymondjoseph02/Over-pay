@@ -1,12 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Sun, Moon, CheckSquare, Square, ArrowLeftRight } from "lucide-react";
+import { CheckSquare, Square, ArrowLeftRight } from "lucide-react";
 import { LogoTextIcon } from "../../assets/svg/icons";
 import LogoImage from "../../assets/img/logo.png";
 import { ROUTES } from "../../routes";
 import { SideBarLink } from "./SidbarLinks";
 import { useAuthStore } from "../../store/authStore";
-import { useTheme } from "../../context/ThemeContext";
 import { appUsers } from "../../data/users";
 
 type SideBarProps = {
@@ -17,8 +16,6 @@ export const SideBar = ({ closeSidebar }: SideBarProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { currentUser, setCurrentUser } = useAuthStore();
-  const theme = useTheme((s) => s.theme);
-  const toggleTheme = useTheme((s) => s.toggleTheme);
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -52,15 +49,6 @@ export const SideBar = ({ closeSidebar }: SideBarProps) => {
       </div>
 
       <div className="flex flex-col gap-3">
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="w-full flex items-center gap-2 p-3 rounded-xl text-gray-600 dark:text-gray-400 text-sm font-medium cursor-pointer hover:bg-primary-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-primary-400 transition ease-in-out duration-300"
-        >
-          {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
-          {theme === "light" ? "Dark mode" : "Light mode"}
-        </button>
-
         {/* User / role switcher */}
         <div>
           <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-1.5 px-1 flex items-center gap-2 ">

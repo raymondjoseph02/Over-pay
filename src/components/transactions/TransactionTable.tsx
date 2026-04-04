@@ -81,6 +81,20 @@ const ActionMenu = ({
                 </li>
                 <li
                   onClick={() => {
+                    setSelectedTransaction(transaction);
+                    setOpen(false);
+                  }}
+                  className={`flex items-center gap-2 cursor-pointer px-4 py-2.5 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-primary-500 bg-primary-50 dark:bg-primary-500/10"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  }`}
+                >
+                  <Eye size={13} />
+                  View Details
+                </li>
+                <li
+                  onClick={() => {
                     deleteTransaction(transaction.id);
                     setOpen(false);
                   }}
