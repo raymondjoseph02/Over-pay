@@ -1,11 +1,10 @@
 export { Header } from "./Header";
 export { NavBar } from "./NavBar";
 export { SideBar } from "./SideBar";
-export { ProfileModal } from "./ProfileModal";
-export { NavItem } from "./NavItems";
+export { ProfileModal } from "../modals/ProfileModal";
+export { SideBarLink } from "./SidbarLinks";
 export { Button } from "./Button";
 export * from "./Skeleton";
 export * from "./EmptyState";
-export { ComingSoon } from "./ComingSoon";
 export { AmountInput } from "./AmountInput";
 export { PaymentMethodCard } from "./PaymentMethodCard";

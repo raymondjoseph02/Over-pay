@@ -1,4 +1,5 @@
-import type { ButtonProps } from "../../types/interface";
+import type { ButtonProps } from "../../types/type";
+import { Spinner } from "./Loader";
 
 export const Button = ({
   variants,
@@ -6,6 +7,7 @@ export const Button = ({
   className,
   handleClick,
   isDisable,
+  loading,
 }: ButtonProps) => {
   const getClasses = () => {
     switch (variants) {
@@ -20,10 +22,10 @@ export const Button = ({
   return (
     <button
       onClick={handleClick}
-      disabled={isDisable}
-      className={` ${getClasses()} ${className || ""}  transition ease-in-out duration-300 rounded-lg w-full p-2.5 cursor-pointer flex items-center justify-center gap-0.5 md:text-base font-black tracking-[0.2px] outline-0 ring-0  leading-[150%]  dark:disabled:bg-primary-300 `}
+      disabled={isDisable || loading}
+      className={` ${getClasses()} ${className || ""}  transition ease-in-out duration-300 rounded-lg w-full p-2.5 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center gap-2 md:text-base font-black tracking-[0.2px] outline-0 ring-0  leading-[150%]  dark:disabled:bg-primary-300 `}
     >
-      {children}
+      {loading ? <Spinner color="primary" /> : children}
     </button>
   );
 };

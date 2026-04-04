@@ -1,21 +1,25 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import {
-  LogoTextIcon,
-  QuestionCircleIcon,
-  SettingsIcon,
-} from "../../assets/svg/icons";
+import { Sun, Moon, CheckSquare, Square, ArrowLeftRight } from "lucide-react";
+import { LogoTextIcon } from "../../assets/svg/icons";
 import LogoImage from "../../assets/img/logo.png";
 import { ROUTES } from "../../routes";
-import { NavItem } from "./NavItems";
+import { SideBarLink } from "./SidbarLinks";
 import { useAuthStore } from "../../store/authStore";
+import { useTheme } from "../../context/ThemeContext";
+import { appUsers } from "../../data/users";
 
-export const SideBar = () => {
+type SideBarProps = {
+  closeSidebar: () => void;
+};
+
+export const SideBar = ({ closeSidebar }: SideBarProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { currentUser } = useAuthStore();
+  const { currentUser, setCurrentUser } = useAuthStore();
+  const theme = useTheme((s) => s.theme);
+  const toggleTheme = useTheme((s) => s.toggleTheme);
 
-  //  controls which dropdown is open
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const visibleRoutes = ROUTES["dashboard"].filter(
@@ -23,7 +27,7 @@ export const SideBar = () => {
   );
 
   return (
-    <aside className=" dark:bg-gray-800 pb-10 pt-11 w-62.5 max-w-3xs bg-gray-50 px-6 flex flex-col justify-between h-full">
+    <aside className="dark:bg-gray-800 pb-10 pt-11 w-62.5 max-w-3xs bg-gray-50 px-6 flex flex-col justify-between h-full">
       <div>
         <div aria-label="over pay logo" className="flex gap-1 items-end">
           <img src={LogoImage} alt="over pay logo" className="h-6 w-auto" />
@@ -31,45 +35,61 @@ export const SideBar = () => {
             <LogoTextIcon />
           </span>
         </div>
-
         <hr className="mb-10 mt-8 bg-gray-300 dark:bg-gray-700 h-px" />
-
         <nav className="flex flex-col gap-1">
           {visibleRoutes.map((route) => (
-            <NavItem
+            <SideBarLink
               key={route.path}
               route={route}
               isOpen={openDropdown === route.path}
               setOpen={setOpenDropdown}
               pathname={pathname}
               navigate={navigate}
+              closeSidebar={closeSidebar}
             />
           ))}
         </nav>
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-3">
+        {/* Theme toggle */}
         <button
-          onClick={() => {
-            setOpenDropdown(null);
-            navigate("#");
-          }}
-          className="w-full flex items-center gap-2 p-3 text-gray-600 text-sm font-medium cursor-pointer hover:bg-primary-100 hover:text-gray-700 dark:hover:text-primary-400 dark:hover:bg-gray-700  transition ease-in-out duration-300"
+          onClick={toggleTheme}
+          className="w-full flex items-center gap-2 p-3 rounded-xl text-gray-600 dark:text-gray-400 text-sm font-medium cursor-pointer hover:bg-primary-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-primary-400 transition ease-in-out duration-300"
         >
-          <QuestionCircleIcon />
-          Get Help
+          {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          {theme === "light" ? "Dark mode" : "Light mode"}
         </button>
 
-        <button
-          onClick={() => {
-            setOpenDropdown(null);
-            navigate("#");
-          }}
-          className="w-full flex items-center gap-2 p-3 text-gray-600 text-sm font-medium cursor-pointer hover:bg-primary-100 hover:text-gray-700 dark:hover:text-primary-400 dark:hover:bg-gray-700  transition ease-in-out duration-300"
-        >
-          <SettingsIcon />
-          Settings
-        </button>
+        {/* User / role switcher */}
+        <div>
+          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-1.5 px-1 flex items-center gap-2 ">
+            <span>Switch role</span>
+            <ArrowLeftRight size={16} />
+          </p>
+          <div className="flex flex-col gap-1">
+            {appUsers.map((u) => {
+              const isActive = currentUser.id === u.id;
+              return (
+                <button
+                  key={u.id}
+                  onClick={() => setCurrentUser(u)}
+                  className="w-full flex items-center gap-2 p-3 rounded-xl text-sm font-medium cursor-pointer transition ease-in-out duration-300 text-gray-600 dark:text-gray-400 hover:bg-primary-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-primary-400"
+                >
+                  {isActive ? (
+                    <CheckSquare
+                      size={16}
+                      className="text-primary-500 shrink-0"
+                    />
+                  ) : (
+                    <Square size={16} className="shrink-0" />
+                  )}
+                  <span className="truncate capitalize">{u.role}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </aside>
   );

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { topLine, middleLine, bottomLine } from "../../animation/index";
-import type { HamburgerProps } from "../../types/interface";
+import type { HamburgerProps } from "../../types/type";
 
 const HamburgerButton = ({ toggle, isOpen }: HamburgerProps) => {
   return (

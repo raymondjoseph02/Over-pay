@@ -1,1 +1,1 @@
-export { WalletAction } from "./WalletAction";
+export { WalletWidget } from "./WalletWidget";

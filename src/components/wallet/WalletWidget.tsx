@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 import { VerticalMoreIcon } from "../../assets/svg/icons";
-import { cards } from "../../data/dummy";
+import { cards } from "../../data/data";
 import { CardSwiper } from "../atm-card";
-import { walletsCta } from "../../data/wallets";
-import { WalletAction } from "../dashboard/WalletAction";
+import { walletsCta } from "../../data/data";
 import { AnimatePresence, motion } from "framer-motion";
 import { dropdownVariants } from "../../animation";
 import useClickOutside from "../../hooks/useClickOutside";
+import { WalletAction } from "../dashboard/WalletAction";
 
 const menuOptions = [
   { label: "Add new card" },
@@ -29,7 +29,7 @@ export const WalletWidget = () => {
         </p>
         <div ref={menuRef} className="relative">
           <button
-            onClick={() => setMenuOpen((p) => !p)}
+            onClick={() => setMenuOpen((prev) => !prev)}
             className="text-gray-400 dark:text-gray-600 cursor-pointer"
           >
             <VerticalMoreIcon />
@@ -63,7 +63,7 @@ export const WalletWidget = () => {
         activeCard={activeCard}
         setActiveCard={setActiveCard}
       />
-      <div className="flex justify-between w-full items-center mx-auto mt-10 max-w-73.75">
+      <div className="flex justify-center w-full items-center mt-10">
         {walletsCta.map((cta, index) => (
           <WalletAction
             key={index}

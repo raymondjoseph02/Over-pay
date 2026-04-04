@@ -1,4 +1,4 @@
-import type { User } from "../types/interface";
+import type { User } from "../types/type";
 import UserProfileImage from "../assets/img/user-profile.png";
 
 export const appUsers: User[] = [

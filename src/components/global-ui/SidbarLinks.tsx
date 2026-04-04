@@ -1,13 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon } from "../../assets/svg/icons";
-import type { Route } from "../../types/interface";
-
-type NavItemProps = {
-  route: Route;
-  isOpen: boolean;
-  setOpen: (path: string | null) => void;
-  pathname: string;
-  navigate: (path: string) => void;
-};
+import type { NavItemProps, Route } from "../../types/type";
 
 const linkClass =
   "p-3 sm:p-4 flex gap-3 items-center justify-between font-black text-sm leading-[150%] tracking-[0.2px] cursor-pointer rounded-xl capitalize";
@@ -17,12 +9,13 @@ const activeClass = "bg-primary-500 text-white";
 const inactiveClass =
   "text-gray-600 dark:text-gray-500 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700";
 
-export const NavItem = ({
+export const SideBarLink = ({
   route,
   isOpen,
   setOpen,
   pathname,
   navigate,
+  closeSidebar,
 }: NavItemProps) => {
   const isRouteActive = route.hasSubRoutes
     ? route.subRoutes?.some((sub: Route) => sub.path === pathname)
@@ -33,13 +26,18 @@ export const NavItem = ({
       setOpen(null);
     } else {
       setOpen(route.path);
-      navigate(route.subRoutes?.[0]?.path ?? "");
+
+      // auto navigate to first sub route
+      if (route.subRoutes?.[0]?.path) {
+        navigate(route.subRoutes[0].path);
+      }
     }
   };
 
   const handleNormalLink = () => {
     setOpen(null);
     navigate(route.path);
+    closeSidebar?.();
   };
 
   if (route.hasSubRoutes) {

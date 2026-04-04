@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import {
   CashBackBanner,
-  SavingsList,
   RecentActivities,
-  Statistics,
-  WalletWidget,
+  SummaryCards,
+  SummaryCardsSkeleton,
+  Insights,
+  InsightsSkeleton,
 } from "../../components/dashboard";
 import { Header } from "../../components/global-ui";
 import { MoneyFlowChart, SpendingBarChart } from "../../components/charts";
@@ -12,29 +12,29 @@ import {
   CashbackBannerSkeleton,
   WalletWidgetSkeleton,
   RecentActivitiesSkeleton,
-  SavingsListSkeleton,
-  StatisticsSkeleton,
 } from "../../components/global-ui";
 import { useAuthStore } from "../../store/authStore";
-import { adminSpendingHistory } from "../../data/dummy";
+import { adminSpendingHistory } from "../../data/data";
+import { useLoadingStimulator } from "../../hooks/useLoadingStimulator";
+import { WalletWidget } from "../../components/wallet";
 
 export const DashboardPage = () => {
-  const [loading, setLoading] = useState(true);
   const { currentUser } = useAuthStore();
   const isAdmin = currentUser.role === "admin";
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  const { loading } = useLoadingStimulator();
 
   return (
     <>
       <Header title="Dashboard" />
 
-      <div className="flex flex-col-reverse lg:flex-row gap-4">
+      {/* Summary cards — full width */}
+      <div className="mb-4 lg:mb-6">
+        {loading ? <SummaryCardsSkeleton /> : <SummaryCards />}
+      </div>
+
+      <div className="flex flex-col-reverse lg:flex-row gap-4 lg:gap-6">
         {/* Left column */}
-        <div className="flex flex-col flex-1 max-w-178.25 gap-6">
+        <div className="flex flex-col flex-1 min-w-0 gap-6">
           <div className="hidden lg:flex h-fit">
             {loading ? (
               <CashbackBannerSkeleton />
@@ -54,14 +54,12 @@ export const DashboardPage = () => {
           </div>
           {loading ? null : <MoneyFlowChart />}
 
-          <div className="flex gap-6 flex-col md:flex-row">
-            {loading ? <SavingsListSkeleton /> : <SavingsList />}
-            {loading ? <StatisticsSkeleton /> : <Statistics />}
-          </div>
+          {loading ? <InsightsSkeleton /> : <Insights />}
+
         </div>
 
         {/* Right column */}
-        <div className="flex-1 flex flex-col gap-4 xl:max-w-91.25 w-91.25">
+        <div className="w-full lg:w-91.25 lg:shrink-0 flex flex-col gap-4">
           <div className="lg:hidden">
             {loading ? (
               <CashbackBannerSkeleton />

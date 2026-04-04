@@ -20,7 +20,7 @@ export const useTheme = create<ThemeStore>()(
 );
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const theme = useTheme((s) => s.theme);
+  const theme = useTheme((themeStore) => themeStore.theme);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");

@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import type { ReactNode } from "react";
 
 interface PaymentMethodCardProps {
-  icon: ReactNode;
+  icon?: ReactNode;
   name: string;
   balance: string;
   selected: boolean;
@@ -27,7 +27,7 @@ export const PaymentMethodCard = ({
     >
       {/* Card logo */}
       <div className="size-14 rounded-full bg-white dark:bg-white flex items-center justify-center shrink-0 shadow-sm">
-        {icon}
+        {icon ?? name.slice(0, 2)}
       </div>
 
       {/* Info */}

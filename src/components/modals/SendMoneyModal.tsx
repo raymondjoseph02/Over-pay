@@ -4,9 +4,8 @@ import { Button } from "../global-ui/Button";
 import { AmountInput } from "../global-ui/AmountInput";
 import { PaymentMethodCard } from "../global-ui/PaymentMethodCard";
 import { ConfirmSendModal } from "./ConfirmSendModal";
-import { contacts } from "../../data/contacts";
-import { paymentMethods } from "../../data/paymentMethods";
-import type { SendMoneyModalProps } from "../../types/interface";
+import type { SendMoneyModalProps } from "../../types/type";
+import { merchants, paymentMethods } from "../../data/data";
 
 export const SendMoneyModal = ({ onClose }: SendMoneyModalProps) => {
   const [step, setStep] = useState<1 | 2>(1);
@@ -15,15 +14,15 @@ export const SendMoneyModal = ({ onClose }: SendMoneyModalProps) => {
   const [selectedMethod, setSelectedMethod] = useState<string>("visa");
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (dir: "left" | "right") => {
+  const scroll = (direction: "left" | "right") => {
     if (!sliderRef.current) return;
     sliderRef.current.scrollBy({
-      left: dir === "left" ? -120 : 120,
+      left: direction === "left" ? -120 : 120,
       behavior: "smooth",
     });
   };
 
-  const selectedContact = contacts.find((c) => c.id === selected) ?? null;
+  const selectedContact = merchants.find((m) => m.id === selected) ?? null;
 
   if (step === 2) {
     return (
@@ -58,7 +57,7 @@ export const SendMoneyModal = ({ onClose }: SendMoneyModalProps) => {
       <div>
         <div className="flex mb-6 mt-10 items-center justify-between">
           <p className="text-base font-black dark:text-gray-50 text-gray-900">
-            Recent Contact
+            Merchant
           </p>
           <div className="flex gap-1 items-center">
             <button
@@ -75,54 +74,52 @@ export const SendMoneyModal = ({ onClose }: SendMoneyModalProps) => {
             </button>
           </div>
         </div>
-        <div className="flex gap-4 mb-8 items-start">
-          {/* Add button */}
-          <div className="gap-3 flex flex-col items-center w-fit shrink-0">
-            <button className="size-14 rounded-full dark:bg-gray-800 text-gray-900 dark:text-white flex items-center justify-center bg-gray-100 cursor-pointer">
-              <Plus />
-            </button>
-            <p className="dark:text-gray-500 font-medium text-sm text-gray-900">
-              Add
-            </p>
-          </div>
 
-          {/* Scrollable contact slider */}
-          <div
-            ref={sliderRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          >
-            {contacts.map((contact) => {
-              const isSelected = selected === contact.id;
-              return (
-                <button
-                  key={contact.id}
-                  onClick={() => setSelected(isSelected ? null : contact.id)}
-                  className="gap-2 flex flex-col items-center w-fit shrink-0 outline-none cursor-pointer"
+        {/* Scrollable merchant slider */}
+        <div
+          ref={sliderRef}
+          className="flex gap-4 mb-8 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
+          {merchants.map((merchant) => {
+            const isSelected = selected === merchant.id;
+            return (
+              <button
+                key={merchant.id}
+                onClick={() => setSelected(isSelected ? null : merchant.id)}
+                className="gap-2 flex flex-col items-center w-fit shrink-0 outline-none cursor-pointer"
+              >
+                <div
+                  className={`size-14 rounded-full overflow-hidden border-2 transition-colors ${
+                    isSelected ? "border-primary-500" : "border-transparent"
+                  }`}
                 >
-                  <div
-                    className={`size-14 rounded-full overflow-hidden border-2 transition-colors ${
-                      isSelected ? "border-primary-500" : "border-transparent"
-                    }`}
-                  >
+                  {merchant.imageUrl ? (
                     <img
-                      src={contact.image}
-                      alt={contact.name}
+                      src={merchant.imageUrl}
+                      alt={merchant.name}
                       className="size-full object-cover"
                     />
-                  </div>
-                  <p
-                    className={` text-xs transition-colors ${
-                      isSelected
-                        ? "text-primary-500 font-black"
-                        : "dark:text-gray-500 font-medium text-gray-900"
-                    }`}
-                  >
-                    {contact.name}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
+                  ) : (
+                    <div
+                      className="size-full flex items-center justify-center text-white text-lg font-black"
+                      style={{ backgroundColor: merchant.color }}
+                    >
+                      {merchant.initial}
+                    </div>
+                  )}
+                </div>
+                <p
+                  className={`text-xs transition-colors ${
+                    isSelected
+                      ? "text-primary-500 font-black"
+                      : "dark:text-gray-500 font-medium text-gray-900"
+                  }`}
+                >
+                  {merchant.name}
+                </p>
+              </button>
+            );
+          })}
         </div>
 
         <div>
@@ -139,7 +136,6 @@ export const SendMoneyModal = ({ onClose }: SendMoneyModalProps) => {
             {paymentMethods.map((method) => (
               <PaymentMethodCard
                 key={method.id}
-                icon={method.icon}
                 name={method.name}
                 balance={method.balance}
                 selected={selectedMethod === method.id}

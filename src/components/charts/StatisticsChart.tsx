@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { DonutChartProps } from "../../types/interface";
+import type { DonutChartProps } from "../../types/type";
 
-export const DonutChart = ({
+export const StatisticsChart = ({
   data,
   size = 140,
   strokeWidth = 14,

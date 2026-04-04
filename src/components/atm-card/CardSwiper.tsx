@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AtmCardImage from "../../assets/img/atm-card.png";
-import type { CardSwiperProps } from "../../types/interface";
 import {
   cardVariants,
   indicatorVarVariants,
@@ -10,6 +9,7 @@ import {
 } from "../../animation";
 import getCurrency from "../../utility/getCurrency";
 import { Eye, EyeOff } from "lucide-react";
+import type { CardSwiperProps } from "../../types/type";
 
 export const CardSwiper = ({
   cards,
@@ -19,10 +19,10 @@ export const CardSwiper = ({
   const [direction, setDirection] = useState(0);
   const [balanceHidden, setBalanceHidden] = useState(false);
 
-  const activeIndex = cards.findIndex((c) => c.id === activeCard);
+  const activeIndex = cards.findIndex((card) => card.id === activeCard);
 
   const handleCardClick = (id: string) => {
-    const newIndex = cards.findIndex((c) => c.id === id);
+    const newIndex = cards.findIndex((card) => card.id === id);
     setDirection(newIndex > activeIndex ? 1 : -1);
     setActiveCard(id);
   };
@@ -43,7 +43,7 @@ export const CardSwiper = ({
 
   return (
     <div className=" h-fit!">
-      <div className="relative h-fit w-fit overflow-hidden">
+      <div className="relative w-full overflow-hidden">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           {cards
             .filter((card) => card.id === activeCard)
@@ -61,27 +61,27 @@ export const CardSwiper = ({
                 whileTap={{ cursor: "grabbing" }}
                 onDragEnd={handleDragEnd}
               >
-                <div className="absolute left-5.75 bottom-5.75 space-y-3.5">
+                <div className="absolute left-4 bottom-4 sm:left-5.75 sm:bottom-5.75 space-y-2 sm:space-y-3.5">
                   <div className="flex items-center gap-3 text-gray-500">
                     <p className="text-xs ">Balance</p>
-                    <button onClick={() => setBalanceHidden((p) => !p)}>
+                    <button onClick={() => setBalanceHidden((prev) => !prev)}>
                       {balanceHidden ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
-                  <p className="text-xl font-black text-white">
+                  <p className="text-base sm:text-xl font-black text-white">
                     {balanceHidden
                       ? "******"
                       : `${getCurrency({ currency: card.currency })} ${card.balance}`}
                   </p>
                 </div>
-                <img src={AtmCardImage} alt="" />
+                <img src={AtmCardImage} alt="" className="w-full h-auto" />
               </motion.div>
             ))}
         </AnimatePresence>
       </div>
 
       {/* Card selector dots */}
-      <div className="flex gap-1 mt-2 items-center justify-center">
+      <div className="flex gap-1 mt-2 items-center justify-center relative z-20">
         {cards.map((card) => (
           <motion.button
             key={card.id}
@@ -89,7 +89,7 @@ export const CardSwiper = ({
             initial="initial"
             animate={activeCard === card.id ? "animate" : "initial"}
             onClick={() => handleCardClick(card.id)}
-            className={`h-1 rounded-full ${activeCard === card.id ? " bg-secondary-500 dark:bg-white" : " bg-gray-200 dark:bg-gray-700"}`}
+            className={`h-1 cursor-pointer rounded-full ${activeCard === card.id ? " bg-secondary-500 dark:bg-white" : " bg-gray-200 dark:bg-gray-700"}`}
           />
         ))}
       </div>

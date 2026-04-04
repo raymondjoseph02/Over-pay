@@ -1,4 +1,4 @@
-import type { ActivitiesProps } from "../../types/interface";
+import type { ActivitiesProps } from "../../types/type";
 import { formatDate } from "../../utility/formatDate";
 
 export const RecentActivityCard = ({

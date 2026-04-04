@@ -1,4 +1,4 @@
-import type { DashboardHeaderProps } from "../../types/interface";
+import type { DashboardHeaderProps } from "../../types/type";
 
 export const Header = ({ title }: DashboardHeaderProps) => {
   return (

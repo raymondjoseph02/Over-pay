@@ -3,11 +3,17 @@ import type {
   ActivitiesProps,
   Transaction,
   SavingsAccountProps,
-} from "../types/interface";
+  Contact,
+  Merchant,
+  PaymentMethod,
+  WalletActionProps,
+  ProfileDropdownOption,
+} from "../types/type";
 import ui8Logo from "../assets/img/ui8.png";
 import upWorkLogo from "../assets/img/upwork.png";
 import StripeLogo from "../assets/img/stripe.png";
 import FacebookLogo from "../assets/img/facebook.png";
+import DummyImage from "../assets/img/user-profile.png";
 
 export const cards: AtmCardProps[] = [
   {
@@ -400,4 +406,77 @@ export const adminSpendingHistory: { month: string; value: number }[] = [
   { month: "Feb", value: 28300 },
   { month: "Mar", value: 24600 },
   { month: "Apr", value: 33200 },
+];
+
+export const contacts: Contact[] = [
+  {
+    id: 1,
+    name: "Francene",
+    image: DummyImage,
+    email: "francene@mail.com",
+    accountNumber: "OV100234567890",
+  },
+  {
+    id: 2,
+    name: "Marcus",
+    image: DummyImage,
+    email: "marcus@mail.com",
+    accountNumber: "OV200345678901",
+  },
+  {
+    id: 3,
+    name: "Alesia",
+    image: DummyImage,
+    email: "alesia@mail.com",
+    accountNumber: "OV300456789012",
+  },
+  {
+    id: 4,
+    name: "Jordan",
+    image: DummyImage,
+    email: "jordan@mail.com",
+    accountNumber: "OV400567890123",
+  },
+  {
+    id: 5,
+    name: "Taylor",
+    image: DummyImage,
+    email: "taylor@mail.com",
+    accountNumber: "OV500678901234",
+  },
+  {
+    id: 6,
+    name: "Riley",
+    image: DummyImage,
+    email: "riley@mail.com",
+    accountNumber: "OV600789012345",
+  },
+];
+export const paymentMethods: PaymentMethod[] = [
+  { id: "visa", name: "Visa", balance: "$24,098.00" },
+  {
+    id: "mc",
+    name: "Mastercard",
+    balance: "$14,111.00",
+  },
+];
+
+export const walletsCta: WalletActionProps[] = [
+  { name: "Make Payment", action: "SEND", icon: "send" },
+];
+
+export const profileOptions: ProfileDropdownOption[] = [
+  { name: "Your details", action: "PROFILE", icon: "user" },
+  { name: "Account settings", action: "SETTINGS", icon: "settings" },
+  { name: "Logout", action: "LOGOUT", icon: "logout" },
+];
+
+export const merchants: Merchant[] = [
+  { id: 1, name: "Stripe", imageUrl: StripeLogo },
+  { id: 2, name: "Upwork", imageUrl: upWorkLogo },
+  { id: 3, name: "Facebook", imageUrl: FacebookLogo },
+  { id: 4, name: "UI8", imageUrl: ui8Logo },
+  { id: 5, name: "Netflix", initial: "N", color: "#E50914" },
+  { id: 6, name: "Amazon", initial: "A", color: "#FF9900" },
+  { id: 7, name: "Spotify", initial: "S", color: "#1DB954" },
 ];

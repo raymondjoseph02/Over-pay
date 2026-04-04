@@ -1,9 +1,7 @@
-import type { ProfileDropdownProps } from "../../types/interface";
+import type { ProfileDropdownProps } from "../../types/type";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { iconMapper } from "../../utility/iconMapper";
-import { useAuthStore } from "../../store/authStore";
-import { appUsers } from "../../data/users";
 
 export const ProfileModal = ({
   options,
@@ -11,10 +9,8 @@ export const ProfileModal = ({
   theme,
   toggleTheme,
   user,
-  onClose,
 }: ProfileDropdownProps) => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useAuthStore();
 
   const handleProfileAction = (action: string) => {
     switch (action.toLowerCase()) {
@@ -25,23 +21,11 @@ export const ProfileModal = ({
         navigate("/settings");
         break;
       case "LOGOUT":
-        console.log("Logout logic here");
         break;
       default:
         break;
     }
   };
-
-  const handleSwitchUser = (userId: string) => {
-    const target = appUsers.find((u) => u.id === userId);
-    if (target) {
-      setCurrentUser(target);
-      onClose();
-    }
-  };
-
-  const getInitials = (name: string) =>
-    name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
 
   if (!isOpen) return null;
 
@@ -73,47 +57,6 @@ export const ProfileModal = ({
         </div>
 
         <hr className="border-gray-100 dark:border-gray-700" />
-
-        {/* Switch account */}
-        <div className="px-2 pb-1">
-          <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">
-            Switch Account
-          </p>
-          <div className="flex flex-col gap-1">
-            {appUsers.map((u) => {
-              const isActive = u.id === user.id;
-              return (
-                <button
-                  key={u.id}
-                  onClick={() => handleSwitchUser(u.id)}
-                  disabled={isActive}
-                  className={`flex items-center gap-2.5 w-full rounded-lg px-2 py-1.5 transition-colors text-left ${
-                    isActive
-                      ? "bg-primary-50 dark:bg-primary-500/10 cursor-default"
-                      : "hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
-                  }`}
-                >
-                  <div className="size-7 rounded-full overflow-hidden bg-primary-100 dark:bg-primary-500/20 flex items-center justify-center shrink-0">
-                    {u.profilePictureUrl ? (
-                      <img src={u.profilePictureUrl} alt={u.name} className="size-full object-cover" />
-                    ) : (
-                      <span className="text-[10px] font-black text-primary-500">{getInitials(u.name)}</span>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className={`text-xs font-semibold truncate ${isActive ? "text-primary-500" : "text-gray-900 dark:text-gray-50"}`}>
-                      {u.name}
-                    </p>
-                    <p className="text-[10px] text-gray-400 dark:text-gray-500 capitalize">{u.role}</p>
-                  </div>
-                  {isActive && (
-                    <div className="size-1.5 rounded-full bg-primary-500 shrink-0" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
         <hr className="border-gray-100 dark:border-gray-700" />
 

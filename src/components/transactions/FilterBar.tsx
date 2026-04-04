@@ -9,7 +9,7 @@ interface FilterDropdownProps {
   label: string;
   value: string;
   options: { label: string; value: string }[];
-  onChange: (v: string) => void;
+  onChange: (value: string) => void;
 }
 
 const FilterDropdown = ({
@@ -27,7 +27,7 @@ const FilterDropdown = ({
     <div ref={ref} className="relative">
       <button
         type="button"
-        onClick={() => setOpen((p) => !p)}
+        onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-gray-200 whitespace-nowrap"
       >
         <span className="text-gray-400 dark:text-gray-500 font-medium">
@@ -113,24 +113,21 @@ export const FilterBar = () => {
     setDateFilter,
     statusFilter,
     setStatusFilter,
+    archiveFilter,
+    setArchiveFilter,
+    transactionTypeFilter,
+    setTransactionTypeFilter,
     clearFilters,
   } = useTransactionStore();
-
-  const [archive, setArchive] = useState("active");
-  const [txType, setTxType] = useState("all");
 
   const isFiltered =
     typeFilter !== "all" ||
     statusFilter !== "all" ||
     dateFilter !== "all" ||
-    archive !== "active" ||
-    txType !== "all";
+    archiveFilter !== "active" ||
+    transactionTypeFilter !== "all";
 
-  const handleClear = () => {
-    clearFilters();
-    setArchive("active");
-    setTxType("all");
-  };
+  const handleClear = () => clearFilters();
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -142,15 +139,15 @@ export const FilterBar = () => {
       />
       <FilterDropdown
         label="Archive"
-        value={archive}
+        value={archiveFilter}
         options={archiveOptions}
-        onChange={setArchive}
+        onChange={setArchiveFilter}
       />
       <FilterDropdown
         label="Transaction type"
-        value={txType}
+        value={transactionTypeFilter}
         options={transactionTypeOptions}
-        onChange={setTxType}
+        onChange={setTransactionTypeFilter}
       />
       <FilterDropdown
         label="Date"

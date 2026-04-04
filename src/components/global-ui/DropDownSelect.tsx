@@ -1,26 +1,27 @@
 import { useRef, type FC } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import type { DropDownSelectProps } from "../../types/interface";
+import type { DropDownSelectProps } from "../../types/type";
 import { chevronVariants, dropdownVariants } from "../../animation";
 import useClickOutside from "../../hooks/useClickOutside";
 
-export const DropDownSelect: FC<DropDownSelectProps> = ({
+export const DropDownSelect: FC<DropDownSelectProps & { className?: string }> = ({
   active,
   options,
   selected,
   setActive,
   setSelected,
+  className = "",
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   useClickOutside(ref, () => setActive(false), active);
 
   return (
-    <div ref={ref} className="relative inline-block">
+    <div ref={ref} className={`relative ${className || "inline-block"}`}>
       <button
         type="button"
         onClick={() => setActive(!active)}
-        className="flex items-center gap-2 rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2.5 text-sm font-semibold text-gray-900 dark:text-white"
+        className="w-full flex items-center justify-between gap-2 rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2.5 text-sm font-semibold text-gray-900 dark:text-white"
       >
         <span>
           {options.find((o) => o.value === selected)?.label ?? selected}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { activities } from "../../data/dummy";
+import { activities } from "../../data/data";
 import { RecentActivityCard } from "./RecentActivityCard";
 import { PATH } from "../../routes";
 import { RecentActivitiesEmpty } from "../global-ui";
