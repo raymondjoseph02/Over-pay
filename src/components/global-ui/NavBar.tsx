@@ -2,12 +2,10 @@ import { useLocation } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { ROUTES } from "../../routes";
 import { useRef, useState } from "react";
-import { ProfileModal } from "../modals/ProfileModal";
-import { profileOptions } from "../../data/data";
 import HamburgerButton from "./Hamburger";
 import useClickOutside from "../../hooks/useClickOutside";
 import { useAuthStore } from "../../store/authStore";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 
 type NavBarProps = {
   toggleSidebar: () => void;
@@ -51,11 +49,22 @@ export const NavBar = ({ toggleSidebar, isOpen }: NavBarProps) => {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex justify-between items-center px-2 py-2.5  gap-2 rounded-full border bg-primary-100 border-gray-50  cursor-pointer dark:bg-gray-700 dark:border-gray-700 transition ease-in-out duration-300"
+          >
+            <span className="text-xs font-medium text-gray-700 dark:text-gray-50 capitalize transition ease-in-out duration-300">
+              {theme} mode
+            </span>
+            <span className="text-xs font-medium text-gray-700 dark:text-gray-50 capitalize transition ease-in-out duration-300">
+              {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
+            </span>
+          </button>
           {/* Profile */}
-          <div ref={profileRef} className="relative">
+          <div className="relative">
             <button
-              onClick={() => setProfileOpen((prev) => !prev)}
-              className={`flex items-center cursor-pointer gap-3 p-2 transition ease-in-out duration-300 rounded-full    ${profileOpen ? " dark:bg-gray-200 bg-gray-200 text-gray-900" : "dark:bg-gray-800 dark:text-white bg-gray-100"}`}
+              className={`flex items-center cursor-pointer gap-3 p-2 transition ease-in-out duration-300 rounded-full dark:bg-gray-800 dark:text-white bg-gray-100`}
             >
               <div className="size-8 rounded-full bg-primary-100 flex items-center justify-center">
                 {currentUser.profilePictureUrl ? (
@@ -74,23 +83,7 @@ export const NavBar = ({ toggleSidebar, isOpen }: NavBarProps) => {
               <span className="hidden md:block font-semibold">
                 {currentUser.name.split(" ")[0]}
               </span>
-
-              <span className="text-primary-500 dark:text-gray-600">
-                {profileOpen ? (
-                  <ChevronUp size={20} />
-                ) : (
-                  <ChevronDown size={20} />
-                )}
-              </span>
             </button>
-
-            <ProfileModal
-              isOpen={profileOpen}
-              options={profileOptions}
-              user={currentUser}
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
           </div>
         </div>
       </nav>

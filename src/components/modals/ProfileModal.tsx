@@ -80,23 +80,6 @@ export const ProfileModal = ({
         </div>
 
         <hr className="border-gray-100 dark:border-gray-700" />
-
-        {/* Theme toggle */}
-        <div className="flex justify-between items-center px-2 py-2.5">
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-50 capitalize">
-            {theme} mode
-          </span>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              className="sr-only peer"
-              checked={theme === "dark"}
-              onChange={toggleTheme}
-            />
-            <div className="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-primary-500 transition-colors duration-300"></div>
-            <div className="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 peer-checked:translate-x-5"></div>
-          </label>
-        </div>
       </motion.div>
     </AnimatePresence>
   );

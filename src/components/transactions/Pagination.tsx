@@ -39,7 +39,7 @@ export const Pagination = ({
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
-          className="size-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          className="size-8 flex items-center justify-center rounded-lg border border-gray-400 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronLeft size={14} />
         </button>
@@ -70,7 +70,7 @@ export const Pagination = ({
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
-          className="size-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          className="size-8 flex items-center justify-center rounded-lg border border-gray-400 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronRight size={14} />
         </button>

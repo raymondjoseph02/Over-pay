@@ -55,7 +55,7 @@ const ActionMenu = ({
         onClick={() => setOpen((prev) => !prev)}
         className="size-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
       >
-        <MoreHorizontal size={16} />
+        <MoreHorizontal size={19} className="font-medium" />
       </button>
 
       <AnimatePresence initial={false}>
@@ -198,7 +198,9 @@ export const TransactionTable = ({ data, onEdit }: TransactionTableProps) => {
       {/* Mobile card list */}
       <div className="flex flex-col gap-4 md:hidden">
         {loading ? (
-          Array.from({ length: SKELETON_COUNT }).map((_, i) => <SkeletonCard key={i} />)
+          Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))
         ) : data.length === 0 ? (
           <NoTransactionFound />
         ) : (
@@ -279,7 +281,9 @@ export const TransactionTable = ({ data, onEdit }: TransactionTableProps) => {
           </thead>
           <tbody>
             {loading ? (
-              Array.from({ length: SKELETON_COUNT }).map((_, i) => <SkeletonRow key={i} />)
+              Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                <SkeletonRow key={i} />
+              ))
             ) : data.length === 0 ? (
               <tr>
                 <td colSpan={6}>
@@ -355,7 +359,11 @@ export const TransactionTable = ({ data, onEdit }: TransactionTableProps) => {
 
                     {/* Actions */}
                     <td className="py-3.5">
-                      <ActionMenu transaction={transaction} isAdmin={isAdmin} onEdit={onEdit} />
+                      <ActionMenu
+                        transaction={transaction}
+                        isAdmin={isAdmin}
+                        onEdit={onEdit}
+                      />
                     </td>
                   </tr>
                 );
