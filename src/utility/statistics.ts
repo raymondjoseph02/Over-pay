@@ -1,10 +1,3 @@
-import type { DonutData } from "../types/type";
-
-interface StatEntry {
-  name: string;
-  value: string;
-}
-
 export const getStatChartColor = (name: string, theme: string): string => {
   switch (name.toLowerCase()) {
     case "shopping":
@@ -29,13 +22,3 @@ export const getStatChartColor = (name: string, theme: string): string => {
       return "#cbd5e0";
   }
 };
-
-export const toStatChartData = (
-  statistics: StatEntry[],
-  theme: string,
-): DonutData[] =>
-  statistics.map((stat) => ({
-    label: stat.name,
-    value: parseFloat(stat.value.replace(/,/g, "")),
-    color: getStatChartColor(stat.name, theme),
-  }));

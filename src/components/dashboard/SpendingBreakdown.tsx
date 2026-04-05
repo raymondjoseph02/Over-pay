@@ -1,7 +1,6 @@
 import { useTransactionStore } from "../../store/transactionStore";
 import { isIncome } from "../../utility/transaction";
 import { getStatChartColor } from "../../utility/statistics";
-import { StatisticsChart } from "../charts";
 import { StatisticsEmpty } from "../global-ui";
 import { useTheme } from "../../context/ThemeContext";
 

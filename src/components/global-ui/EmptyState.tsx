@@ -1,4 +1,4 @@
-import { Activity, PieChart, Wallet } from "lucide-react";
+import { Activity, PieChart } from "lucide-react";
 
 export const RecentActivitiesEmpty = () => (
   <div className="flex flex-col items-center justify-center py-10 gap-2">
@@ -28,19 +28,6 @@ export const StatisticsEmpty = () => (
   </div>
 );
 
-export const SavingsEmpty = () => (
-  <div className="flex flex-col items-center justify-center py-10 gap-2">
-    <div className="size-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-600">
-      <Wallet size={22} />
-    </div>
-    <p className="text-sm font-black text-gray-900 dark:text-gray-50">
-      No savings accounts
-    </p>
-    <p className="text-xs text-gray-400 dark:text-gray-500 text-center max-w-48">
-      No savings accounts found for this period.
-    </p>
-  </div>
-);
 export const NoTransactionFound = () => (
   <div className="py-16 flex flex-col items-center justify-center gap-3">
     <div className="size-14 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-2xl">

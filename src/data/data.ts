@@ -95,20 +95,6 @@ export const activities: ActivitiesProps[] = [
   },
 ];
 
-export const statistics = [
-  {
-    name: "Shopping",
-    value: "725.00",
-  },
-  {
-    name: "Home",
-    value: "2,350.00",
-  },
-  {
-    name: "Others",
-    value: "710.00",
-  },
-];
 
 export const transactions: Transaction[] = [
   {

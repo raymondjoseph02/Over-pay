@@ -1,6 +1,5 @@
 import {
   CashBackBanner,
-  RecentActivities,
   SummaryCards,
   SummaryCardsSkeleton,
   Insights,
@@ -12,7 +11,6 @@ import { MoneyFlowChart, SpendingBarChart } from "../../components/charts";
 import {
   CashbackBannerSkeleton,
   WalletWidgetSkeleton,
-  RecentActivitiesSkeleton,
 } from "../../components/global-ui";
 import { useAuthStore } from "../../store/authStore";
 import { adminSpendingHistory } from "../../data/data";
