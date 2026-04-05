@@ -18,7 +18,7 @@ export const randomAvatarColor = () =>
 export const isIncome = (amount: string) => amount.startsWith("+");
 
 export const calcConverted = (numericAmount: number) =>
-  Math.max(0, numericAmount + TRANSFER_FEES);
+  Math.max(0, numericAmount - TRANSFER_FEES);
 
 export const calcArrivalDate = () => {
   const d = new Date();

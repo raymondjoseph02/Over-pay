@@ -118,7 +118,7 @@ export const ConfirmSendModal = ({
                     Total fees
                   </p>
                   <p className="text-sm text-gray-900 font-medium dark:text-gray-50">
-                    ${TRANSFER_FEES.toFixed(2)}
+                    -${TRANSFER_FEES.toFixed(2)}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
