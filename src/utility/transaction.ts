@@ -1,6 +1,6 @@
 import type { Transaction, TransactionStatus } from "../types/type";
 
-export const TRANSFER_FEES = 20;
+export const TRANSFER_FEES = 0.32;
 
 const AVATAR_COLORS = [
   "#6366f1",
@@ -18,7 +18,7 @@ export const randomAvatarColor = () =>
 export const isIncome = (amount: string) => amount.startsWith("+");
 
 export const calcConverted = (numericAmount: number) =>
-  Math.max(0, numericAmount - TRANSFER_FEES);
+  Math.max(0, numericAmount + TRANSFER_FEES);
 
 export const calcArrivalDate = () => {
   const d = new Date();
@@ -35,7 +35,20 @@ interface BuildTransactionInput {
   date: string;
 }
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 const buildSpendingHistory = (baseValue: number) => {
   const now = new Date();

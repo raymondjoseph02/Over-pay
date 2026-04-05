@@ -36,8 +36,15 @@ export const ConfirmSendModal = ({
         id: crypto.randomUUID(),
         name: selectedContact?.name ?? "Unknown",
         category: "Transfer",
-        date: now.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-        time: now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+        date: now.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        time: now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
         invoiceId: `INV-${Date.now()}`,
         amount: `-$${numericAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}`,
         status: "success",
@@ -54,7 +61,10 @@ export const ConfirmSendModal = ({
     <div className="max-h-dvh md:h-fit pt-6 pb-8 md:pt-0 relative overflow-hidden">
       {/* X button — always visible */}
       <div className="flex items-end justify-end mb-8">
-        <button onClick={onClose} className="w-fit h-fit text-primary-500 cursor-pointer">
+        <button
+          onClick={onClose}
+          className="w-fit h-fit text-primary-500 cursor-pointer"
+        >
           <X />
         </button>
       </div>
@@ -74,14 +84,17 @@ export const ConfirmSendModal = ({
                 Review detail of your transfer
               </p>
               <p className="text-sm font-medium text-gray-600 text-center">
-                Please enter user information that you want to send money and enter an amount
+                Please enter user information that you want to send money and
+                enter an amount
               </p>
             </div>
 
             {/* Transfer details */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-black dark:text-gray-50 text-gray-900">Transfer details</p>
+                <p className="text-sm font-black dark:text-gray-50 text-gray-900">
+                  Transfer details
+                </p>
                 <button
                   onClick={onEdit}
                   className="flex items-center gap-1.5 text-primary-500 text-sm font-medium cursor-pointer"
@@ -94,27 +107,43 @@ export const ConfirmSendModal = ({
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-gray-600 font-medium">You send</p>
                   <p className="text-sm font-black text-primary-500">
-                    ${numericAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    $
+                    {numericAmount.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-600 font-medium">Total fees</p>
+                  <p className="text-sm text-gray-600 font-medium">
+                    Total fees
+                  </p>
                   <p className="text-sm text-gray-900 font-medium dark:text-gray-50">
-                    -${TRANSFER_FEES.toFixed(2)}
+                    ${TRANSFER_FEES.toFixed(2)}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-600 font-medium">Amount we'll convert</p>
+                  <p className="text-sm text-gray-600 font-medium">
+                    Amount we'll convert
+                  </p>
                   <p className="text-sm text-gray-900 font-black dark:text-gray-50">
-                    ${converted.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    $
+                    {converted.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-600 font-medium">Guaranteed rate (48 hours)</p>
-                  <p className="text-sm text-gray-900 dark:text-gray-50 font-medium">0.89765</p>
+                  <p className="text-sm text-gray-600 font-medium">
+                    Guaranteed rate (48 hours)
+                  </p>
+                  <p className="text-sm text-gray-900 dark:text-gray-50 font-medium">
+                    0.89765
+                  </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-600 font-medium">Should arrive</p>
+                  <p className="text-sm text-gray-600 font-medium">
+                    Should arrive
+                  </p>
                   <p className="text-sm text-gray-900 font-medium dark:text-gray-50">
                     by {calcArrivalDate()}
                   </p>
@@ -127,7 +156,9 @@ export const ConfirmSendModal = ({
             {/* Recipient */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-6">
-                <p className="text-base font-black dark:text-gray-50 text-gray-900">Recipient</p>
+                <p className="text-base font-black dark:text-gray-50 text-gray-900">
+                  Recipient
+                </p>
                 <button
                   onClick={onEdit}
                   className="flex items-center gap-1.5 text-primary-500 text-sm font-medium cursor-pointer"
@@ -146,7 +177,11 @@ export const ConfirmSendModal = ({
               </div>
             </div>
 
-            <Button variants="primary" loading={status === "loading"} handleClick={handleConfirm}>
+            <Button
+              variants="primary"
+              loading={status === "loading"}
+              handleClick={handleConfirm}
+            >
               <div className="flex items-center justify-center">
                 <span>Confirm and Send</span>
               </div>
@@ -167,7 +202,12 @@ export const ConfirmSendModal = ({
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 18,
+                delay: 0.1,
+              }}
             >
               <CheckCircle2 size={64} className="text-emerald-500" />
             </motion.div>
@@ -179,7 +219,10 @@ export const ConfirmSendModal = ({
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                 Your transfer of{" "}
                 <span className="text-primary-500 font-black">
-                  ${numericAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  $
+                  {numericAmount.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}
                 </span>{" "}
                 to{" "}
                 <span className="font-bold text-gray-900 dark:text-gray-50">
@@ -195,7 +238,10 @@ export const ConfirmSendModal = ({
               <div className="flex items-center justify-between">
                 <p className="text-xs text-gray-500">Amount sent</p>
                 <p className="text-xs font-black text-primary-500">
-                  ${numericAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  $
+                  {numericAmount.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}
                 </p>
               </div>
               <div className="flex items-center justify-between">
